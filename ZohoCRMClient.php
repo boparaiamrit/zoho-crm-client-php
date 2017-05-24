@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -19,29 +20,33 @@ class ZohoCRMClient implements LoggerAwareInterface
     /** @var LoggerInterface */
     private $logger;
 
-    public function __construct($module, $authToken)
+    public function __construct($authToken)
     {
-        $this->module = $module;
-
         if ($authToken instanceof Transport\Transport) {
             $this->transport = $authToken;
         } else {
             $this->transport = new Transport\XmlDataTransportDecorator(
-                    new Transport\AuthenticationTokenTransportDecorator(
-                        $authToken,
-                        new Transport\BuzzTransport(
-                            new \Buzz\Browser(new \Buzz\Client\Curl()),
-                            'https://crm.zoho.com/crm/private/xml/'
-                        )
+                new Transport\AuthenticationTokenTransportDecorator(
+                    $authToken,
+                    new Transport\BuzzTransport(
+                        new \Buzz\Browser(new \Buzz\Client\Curl()),
+                        'https://crm.zoho.com/crm/private/xml/'
                     )
-                );
+                )
+            );
         }
+    }
+
+    public function setModule($module)
+    {
+        $this->module = $module;
     }
 
     /**
      * Sets a logger instance on the object
      *
      * @param LoggerInterface $logger
+     *
      * @return void
      */
     public function setLogger(LoggerInterface $logger)
@@ -62,6 +67,7 @@ class ZohoCRMClient implements LoggerAwareInterface
 
     /**
      * @param int|null $id
+     *
      * @return Request\GetRecordById
      */
     public function getRecordById($id = null)
@@ -70,6 +76,7 @@ class ZohoCRMClient implements LoggerAwareInterface
         if ($id !== null) {
             $request->id($id);
         }
+
         return $request;
     }
 
@@ -168,6 +175,7 @@ class ZohoCRMClient implements LoggerAwareInterface
     {
         $request = new Transport\TransportRequest($this->module);
         $request->setTransport($this->transport);
+
         return $request;
     }
 }
