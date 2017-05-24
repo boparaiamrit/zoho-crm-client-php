@@ -1,5 +1,5 @@
 {
-  "name": "cristianpontes/zoho-crm-client-php",
+  "name": "boparaiamrit/zoho-crm-client-php",
   "type": "library",
   "description": "Provides a clean readable PHP API to the Zoho Rest API",
   "keywords": [
