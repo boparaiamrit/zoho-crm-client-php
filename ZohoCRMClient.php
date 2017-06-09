@@ -40,6 +40,8 @@ class ZohoCRMClient implements LoggerAwareInterface
     public function setModule($module)
     {
         $this->module = $module;
+
+        return $this;
     }
 
     /**
