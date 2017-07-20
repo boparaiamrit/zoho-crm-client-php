@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 use Buzz\Browser;
@@ -18,15 +19,19 @@ class BuzzTransport implements Transport, LoggerAwareInterface
 
     public function __construct(Browser $browser, $baseUrl)
     {
+        $browser->getClient()
+                ->setTimeout(600);
+
         $this->browser = $browser;
         $this->baseUrl = $baseUrl;
-        $this->logger = new NullLogger();
+        $this->logger  = new NullLogger();
     }
 
     /**
      * Sets a logger instance on the object
      *
      * @param LoggerInterface $logger
+     *
      * @return null
      */
     public function setLogger(LoggerInterface $logger)
@@ -36,30 +41,29 @@ class BuzzTransport implements Transport, LoggerAwareInterface
 
     public function call($module, $method, array $paramList)
     {
-        $url = $this->baseUrl . $module . '/' .  $method;
-        $headers = array();
+        $url         = $this->baseUrl . $module . '/' . $method;
+        $headers     = [];
         $requestBody = http_build_query($paramList, '', '&');
 
         $this->logger->info(sprintf(
-                '[cristianpontes/zoho_crm_client_php] request: call "%s" with params %s',
-                $module . '/' . $method,
-                $requestBody
-            ));
+                                '[cristianpontes/zoho_crm_client_php] request: call "%s" with params %s',
+                                $module . '/' . $method,
+                                $requestBody
+                            ));
 
         // Checking for multipart request
         $multipart = false;
         foreach ($paramList as $param) {
-            if($param instanceof FormUpload){
+            if ($param instanceof FormUpload) {
                 $multipart = true;
                 break;
             }
         }
 
-        if($multipart){
+        if ($multipart) {
             /** @var \Buzz\Message\MessageInterface $response */
             $response = $this->browser->submit($url, $paramList, 'POST', $headers);
-        }
-        else{
+        } else {
             /** @var \Buzz\Message\Response $response */
             $response = $this->browser->post($url, $headers, $requestBody);
         }
@@ -67,20 +71,20 @@ class BuzzTransport implements Transport, LoggerAwareInterface
         $responseContent = $response->getContent();
         if ($response->getStatusCode() !== 200) {
             $this->logger->error(sprintf(
-                    '[cristianpontes/zoho_crm_client_php] fault "%s" for request "%s" with params %s',
-                    $responseContent,
-                    $module . '/' . $method,
-                    $requestBody
-                ));
+                                     '[cristianpontes/zoho_crm_client_php] fault "%s" for request "%s" with params %s',
+                                     $responseContent,
+                                     $module . '/' . $method,
+                                     $requestBody
+                                 ));
             throw new HttpException(
                 $responseContent, $response->getStatusCode()
             );
         }
 
         $this->logger->info(sprintf(
-                '[cristianpontes/zoho_crm_client_php] response: %s',
-                $responseContent
-            ));
+                                '[cristianpontes/zoho_crm_client_php] response: %s',
+                                $responseContent
+                            ));
 
         return $responseContent;
     }

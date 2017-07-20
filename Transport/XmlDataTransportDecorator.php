@@ -1,10 +1,10 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 use CristianPontes\ZohoCRMClient\Exception;
 use CristianPontes\ZohoCRMClient\Response;
 use CristianPontes\ZohoCRMClient\ZohoError;
-
 use SimpleXMLElement;
 
 /**
@@ -31,13 +31,14 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
     /**
      * @param string $module
      * @param string $method
-     * @param array $paramList
+     * @param array  $paramList
+     *
      * @return array
      */
     public function call($module, $method, array $paramList)
     {
-        $this->module = $module;
-        $this->method = $method;
+        $this->module      = $module;
+        $this->method      = $method;
         $this->call_params = $paramList;
 
         if (array_key_exists('xmlData', $paramList)) {
@@ -51,21 +52,20 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
 
     /**
      * @param array $records
+     *
      * @throws \CristianPontes\ZohoCRMClient\Exception\RuntimeException
      * @return string XML representation of the records
      */
     private function encodeRecords(array $records)
     {
-        $root = new SimpleXMLElement('<'.$this->module.'></'.$this->module.'>');
+        $root = new SimpleXMLElement('<' . $this->module . '></' . $this->module . '>');
 
         foreach ($records as $no => $record) {
             $row = $root->addChild('row');
             $row->addAttribute('no', $no + 1);
 
-            foreach ($record as $key => $value)
-            {
-                if ($value instanceof \DateTime)
-                {
+            foreach ($record as $key => $value) {
+                if ($value instanceof \DateTime) {
                     if ($value->format('His') === '000000') {
                         $value = $value->format('m/d/Y');
                     } else {
@@ -76,10 +76,9 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
                 $keyValue = $row->addChild('FL');
                 $keyValue->addAttribute('val', $key);
 
-                if(is_array($value)) {
-                   $this->parseNestedValues($value, $keyValue);
-                }
-                else {
+                if (is_array($value)) {
+                    $this->parseNestedValues($value, $keyValue);
+                } else {
                     $keyValue[0] = $value;
                 }
             }
@@ -94,20 +93,16 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
      */
     private function parseNestedValues($array, &$xml)
     {
-        foreach($array as $key => $value)
-        {
-            if(is_array($value))
-            {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
                 $type = isset($value['@type']) ? $value['@type'] : "null";
                 unset($value['@type']);
 
                 $subNode = $xml->addChild("$type");
                 $subNode->addAttribute('no', $key + 1);
                 $this->parseNestedValues($value, $subNode);
-            }
-            else
-            {
-                $keyValue = $xml->addChild('FL');
+            } else {
+                $keyValue    = $xml->addChild('FL');
                 $keyValue[0] = $value;
                 $keyValue->addAttribute('val', $key);
             }
@@ -118,6 +113,7 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
      * Parses the XML returned by Zoho to the appropriate objects
      *
      * @param string $content Response body as returned by Zoho
+     *
      * @throws Exception\UnexpectedValueException When invalid XML is given to parse
      * @throws Exception\NoDataException when Zoho tells us there is no data
      * @throws Exception\ZohoErrorException when content is a Error response
@@ -134,8 +130,8 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
         if (isset($xml->error)) {
             throw new Exception\ZohoErrorException(
                 new ZohoError(
-                    (string) $xml->error->code,
-                    (string) $xml->error->message
+                    (string)$xml->error->code,
+                    (string)$xml->error->message
                 )
             );
         }
@@ -143,7 +139,7 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
         if (isset($xml->nodata)) {
             throw new Exception\NoDataException(
                 new ZohoError(
-                    (string)$xml->nodata->code, (string) $xml->nodata->message
+                    (string)$xml->nodata->code, (string)$xml->nodata->message
                 )
             );
         }
@@ -181,13 +177,14 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
 
     /**
      * @param SimpleXMLElement $xml
+     *
      * @return array
      */
     private function parseResponseGetRecords(SimpleXMLElement $xml)
     {
-        $records = array();
+        $records = [];
         foreach ($xml->result->{$this->module}->row as $row) {
-            $records[(string) $row['no']] = $this->rowToRecord($row);
+            $records[(string)$row['no']] = $this->rowToRecord($row);
         }
 
         return $records;
@@ -195,107 +192,113 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
 
     /**
      * @param SimpleXMLElement $row
+     *
      * @return Response\Record
      */
     private function rowToRecord(SimpleXMLElement $row)
     {
-        $data = array();
-        foreach($row as $field) {
+        $data = [];
+        foreach ($row as $field) {
             if ($field->count() > 0) {
                 foreach ($field->children() as $item) {
                     foreach ($item->children() as $subitem) {
-                        $data[(string) $field['val']][(string) $item['no']][(string) $subitem['val']] = (string) $subitem;
+                        $data[(string)$field['val']][(string)$item['no']][(string)$subitem['val']] = (string)$subitem;
                     }
                 }
-            }
-            else {
-                $data[(string) $field['val']] = (string) $field;
+            } else {
+                $data[(string)$field['val']] = (string)$field;
             }
         }
 
-        return new Response\Record($data, (int) $row['no']);
+        return new Response\Record($data, (int)$row['no']);
     }
 
     /**
      * @param $xml
+     *
      * @return array
      */
     private function parseResponseGetFields($xml)
     {
-        $records = array();
+        $records = [];
         foreach ($xml->section as $section) {
             foreach ($section as $field) {
-                $options = array();
+                $options = [];
                 if ($field->children()->count() > 0) {
-                    $options = array();
+                    $options = [];
                     foreach ($field->children() as $value) {
-                        $options[] = (string) $value;
+                        $options[] = (string)$value;
                     }
                 }
 
                 $records[] = new Response\Field(
-                    (string) $section['name'],
-                    (string) $field['label'],
-                    (string) $field['type'],
-                    (string) $field['req'] === 'true',
-                    (string) $field['isreadonly'] === 'true',
-                    (int) $field['maxlength'],
+                    (string)$section['name'],
+                    (string)$field['label'],
+                    (string)$field['type'],
+                    (string)$field['req'] === 'true',
+                    (string)$field['isreadonly'] === 'true',
+                    (int)$field['maxlength'],
                     $options,
-                    (string) $field['customfield'] === 'true',
-                    (string) isset($field['lm']) ? $field['lm'] : false
+                    (string)$field['customfield'] === 'true',
+                    (string)isset($field['lm']) ? $field['lm'] : false
                 );
             }
         }
+
         return $records;
     }
 
     /**
      * @param $xml
+     *
      * @return Response\MutationResult
      */
     private function parseResponseDeleteRecords($xml)
     {
-        return new Response\MutationResult(1, (string) $xml->result->code);
+        return new Response\MutationResult(1, (string)$xml->result->code);
     }
 
     /**
      * @param $xml
+     *
      * @return Response\MutationResult
      */
     private function parseResponseUploadFile($xml)
     {
-        $code = isset($xml->result->recorddetail) ? "4800" : "0";
+        $code     = isset($xml->result->recorddetail) ? "4800" : "0";
         $response = new Response\MutationResult(1, $code);
-        if($code === "4800")
-        {
-            $response->setId((string) $xml->result->recorddetail->FL[0]);
-            $response->setCreatedTime((string) $xml->result->recorddetail->FL[1]);
-            $response->setModifiedTime((string) $xml->result->recorddetail->FL[2]);
+        if ($code === "4800") {
+            $response->setId((string)$xml->result->recorddetail->FL[0]);
+            $response->setCreatedTime((string)$xml->result->recorddetail->FL[1]);
+            $response->setModifiedTime((string)$xml->result->recorddetail->FL[2]);
         }
+
         return $response;
     }
 
     /**
      * @param $xml
+     *
      * @return Response\MutationResult
      */
     private function parseResponseDeleteFile($xml)
     {
-        return new Response\MutationResult(1, (string) $xml->success->code);
+        return new Response\MutationResult(1, (string)$xml->success->code);
     }
 
     /**
      * @param $file_content
+     *
      * @return bool
      * @throws Exception\Exception
      */
     private function parseResponseDownloadFile($file_content)
     {
-        if(!isset($this->call_params['file_path'])) {
+        if (!isset($this->call_params['file_path'])) {
             throw new Exception\Exception('Missed file path, set it');
         }
 
-        $fp = fopen($this->call_params['file_path'], 'w');
+        $fp      = fopen($this->call_params['file_path'], 'w');
         $success = fwrite($fp, $file_content);
         fclose($fp);
 
@@ -304,36 +307,39 @@ class XmlDataTransportDecorator extends AbstractTransportDecorator
 
     /**
      * @param $xml
+     *
      * @return Response\Record
      */
     private function parseResponseGetDeletedRecordIds($xml)
     {
-        $ids = explode(',', (string) $xml->result->DeletedIDs);
+        $ids = explode(',', (string)$xml->result->DeletedIDs);
+
         return new Response\Record($ids, 1);
     }
 
     /**
      * @param $xml
+     *
      * @return array
      */
     private function parseResponsePostRecordsMultiple($xml)
     {
-        $records = array();
+        $records = [];
         foreach ($xml->result->row as $row) {
-            $no = (string) $row['no'];
+            $no = (string)$row['no'];
             if (isset($row->success)) {
-                $success = new Response\MutationResult((int) $no, (string) $row->success->code);
+                $success = new Response\MutationResult((int)$no, (string)$row->success->code);
                 foreach ($row->success->details->children() as $field) {
                     $method = 'set' . str_replace(' ', '', $field['val']);
                     if (method_exists($success, $method)) {
-                        $success->{$method}((string) $field);
+                        $success->{$method}((string)$field);
                     }
                 }
                 $records[$no] = $success;
             } else {
-                $error = new Response\MutationResult((int) $no, (string) $row->error->code);
+                $error = new Response\MutationResult((int)$no, (string)$row->error->code);
                 $error->setError(
-                    new ZohoError((string) $row->error->code, (string) $row->error->details)
+                    new ZohoError((string)$row->error->code, (string)$row->error->details)
                 );
                 $records[$no] = $error;
             }

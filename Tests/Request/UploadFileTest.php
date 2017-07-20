@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use Buzz\Message\Form\FormUpload;
@@ -37,7 +38,7 @@ class UploadFileTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('Leads');
+        $this->request    = new TransportRequest('Leads');
         $this->uploadFile = new Request\UploadFile($this->request);
     }
 }

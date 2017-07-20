@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -22,14 +23,14 @@ class GetRecordByIdTest extends \PHPUnit_Framework_TestCase
 
     public function testSelectColumns()
     {
-        $this->getRecordById->selectColumns(array('test'));
+        $this->getRecordById->selectColumns(['test']);
         $this->assertEquals(
             'MyOwnModuleName(test)',
             $this->request->getParam('selectColumns')
 
         );
 
-        $this->getRecordById->selectColumns(array('test', 'test2', 'test4'));
+        $this->getRecordById->selectColumns(['test', 'test2', 'test4']);
         $this->assertEquals(
             'MyOwnModuleName(test,test2,test4)',
             $this->request->getParam('selectColumns')
@@ -63,7 +64,7 @@ class GetRecordByIdTest extends \PHPUnit_Framework_TestCase
     /**
      * @param \CristianPontes\ZohoCRMClient\Request\GetRecordById $getRecordById
      */
-    public function setGetRecordById( $getRecordById )
+    public function setGetRecordById($getRecordById)
     {
         $this->getRecordById = $getRecordById;
     }

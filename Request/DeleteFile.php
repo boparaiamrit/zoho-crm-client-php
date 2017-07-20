@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
 
 use CristianPontes\ZohoCRMClient\Response\MutationResult;
@@ -10,7 +11,6 @@ use CristianPontes\ZohoCRMClient\Response\MutationResult;
  *
  * @see https://www.zoho.com/crm/help/api/deletefile.html
  */
-
 class DeleteFile extends AbstractRequest
 {
     protected function configureRequest()
@@ -23,10 +23,13 @@ class DeleteFile extends AbstractRequest
      * Set the file id to delete
      *
      * @param $id
+     *
      * @return DeleteFile
      */
-    public function id($id){
+    public function id($id)
+    {
         $this->request->setParam('id', $id);
+
         return $this;
     }
 

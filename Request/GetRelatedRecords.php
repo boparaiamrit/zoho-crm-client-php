@@ -1,5 +1,7 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
+
 use CristianPontes\ZohoCRMClient\Response\Record;
 
 /**
@@ -21,21 +23,25 @@ class GetRelatedRecords extends AbstractRequest
 
     /**
      * @param int $index
+     *
      * @return GetRelatedRecords
      */
     public function fromIndex($index)
     {
-        $this->request->setParam('fromIndex', (int) $index);
+        $this->request->setParam('fromIndex', (int)$index);
+
         return $this;
     }
 
     /**
      * @param int $index
+     *
      * @return GetRelatedRecords
      */
     public function toIndex($index)
     {
-        $this->request->setParam('toIndex', (int) $index);
+        $this->request->setParam('toIndex', (int)$index);
+
         return $this;
     }
 
@@ -47,6 +53,7 @@ class GetRelatedRecords extends AbstractRequest
     public function withEmptyFields()
     {
         $this->request->setParam('newFormat', "2");
+
         return $this;
     }
 
@@ -55,11 +62,13 @@ class GetRelatedRecords extends AbstractRequest
      * i.e: If you want to fetch Leads related to a Campaign, then Campaigns is your parent module.
      *
      * @param $parentModule string
+     *
      * @return GetRelatedRecords
      */
     public function parentModule($parentModule)
     {
         $this->request->setParam('parentModule', $parentModule);
+
         return $this;
     }
 
@@ -67,11 +76,13 @@ class GetRelatedRecords extends AbstractRequest
      * The id of the record for which you want to fetch related records
      *
      * @param $id string
+     *
      * @return GetRelatedRecords
      */
     public function id($id)
     {
         $this->request->setParam('id', $id);
+
         return $this;
     }
 

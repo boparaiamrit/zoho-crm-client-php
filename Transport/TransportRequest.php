@@ -1,5 +1,7 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
+
 use CristianPontes\ZohoCRMClient\Response\MutationResult;
 
 /**
@@ -21,17 +23,19 @@ class TransportRequest
      */
     public function __construct($module)
     {
-        $this->module = $module;
-        $this->paramList = array();
+        $this->module    = $module;
+        $this->paramList = [];
     }
 
     /**
      * @param Transport $transport
+     *
      * @return TransportRequest self
      */
     public function setTransport(Transport $transport)
     {
         $this->transport = $transport;
+
         return $this;
     }
 
@@ -45,11 +49,13 @@ class TransportRequest
 
     /**
      * @param string $method
+     *
      * @return TransportRequest
      */
     public function setMethod($method)
     {
         $this->method = $method;
+
         return $this;
     }
 
@@ -63,7 +69,8 @@ class TransportRequest
 
     /**
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return TransportRequest
      */
     public function setParam($key, $value)
@@ -73,11 +80,13 @@ class TransportRequest
         } else {
             $this->paramList[$key] = $value;
         }
+
         return $this;
     }
 
     /**
      * @param string $key
+     *
      * @return mixed|null
      */
     public function getParam($key)

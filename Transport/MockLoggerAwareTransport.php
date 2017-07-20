@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 use Psr\Log\LoggerAwareInterface;
@@ -21,6 +22,7 @@ class MockLoggerAwareTransport extends MockTransport implements LoggerAwareInter
      * Sets a logger instance on the object
      *
      * @param LoggerInterface $logger
+     *
      * @return null
      */
     public function setLogger(LoggerInterface $logger)

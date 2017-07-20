@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -22,14 +23,14 @@ class InsertRecordsTest extends \PHPUnit_Framework_TestCase
 
     public function testRecords()
     {
-        $record = array('First Name' => 'Cristian', 'Last Name' => 'Pontes');
+        $record = ['First Name' => 'Cristian', 'Last Name' => 'Pontes'];
         $this->insertRecords->addRecord($record);
 
         $this->transport->response = true;
 
         $this->assertTrue($this->insertRecords->request());
 
-        $this->assertEquals(array('version' => 4, 'xmlData' => array($record)), $this->transport->paramList);
+        $this->assertEquals(['version' => 4, 'xmlData' => [$record]], $this->transport->paramList);
     }
 
     public function testTriggerWorkflow()
@@ -57,7 +58,7 @@ class InsertRecordsTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('Leads');
+        $this->request   = new TransportRequest('Leads');
         $this->transport = new MockTransport();
         $this->request->setTransport($this->transport);
 

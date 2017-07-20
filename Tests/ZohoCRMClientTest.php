@@ -1,10 +1,10 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests;
 
 use CristianPontes\ZohoCRMClient\Request\GetRecords;
 use CristianPontes\ZohoCRMClient\Transport\MockLoggerAwareTransport;
 use CristianPontes\ZohoCRMClient\ZohoCRMClient;
-use CristianPontes\ZohoCRMClient\Tests\SingleMessageLogger;
 
 class ZohoCRMClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,12 +17,12 @@ class ZohoCRMClientTest extends \PHPUnit_Framework_TestCase
     public function testGetRecords()
     {
         $request = $this->client->getRecords()
-            ->selectColumns('id', 'name')
-            ->fromIndex(100)
-            ->toIndex(200)
-            ->sortBy('name')
-            ->sortAsc()
-            ->since(date_create('now'));
+                                ->selectColumns('id', 'name')
+                                ->fromIndex(100)
+                                ->toIndex(200)
+                                ->sortBy('name')
+                                ->sortAsc()
+                                ->since(date_create('now'));
 
         $this->assertTrue($request instanceof GetRecords);
     }
@@ -90,11 +90,12 @@ class ZohoCRMClientTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->transport = new MockLoggerAwareTransport();
-        $this->client = new mockZohoCRMClient('Leads', $this->transport);
+        $this->client    = new mockZohoCRMClient('Leads', $this->transport);
     }
 }
 
-class mockZohoCRMClient extends ZohoCRMClient {
+class mockZohoCRMClient extends ZohoCRMClient
+{
     public function publicRequest()
     {
         return $this->request();

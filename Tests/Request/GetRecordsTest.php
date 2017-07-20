@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;

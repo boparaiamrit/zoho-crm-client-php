@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Transport\MockTransport;
@@ -19,28 +20,28 @@ class NestedValuesTest extends \PHPUnit_Framework_TestCase
         $this->transport->call(
             'Invoices',
             'getRecords',
-            array('xmlData' => array(
-                array(
-                    'Subject' => 'Test Subject',
-                    'CONTACTID' => 423412341234,
-                    'Product Details' => array(
-                        array(
-                            '@type' => 'product',
+            ['xmlData' => [
+                [
+                    'Subject'         => 'Test Subject',
+                    'CONTACTID'       => 423412341234,
+                    'Product Details' => [
+                        [
+                            '@type'      => 'product',
                             'Product Id' => 314534523452345,
                             'Unit Price' => '4800',
-                            'Quantity' => '1.0',
-                            'Total' => '4800',
-                        ),
-                        array(
-                            '@type' => 'product',
+                            'Quantity'   => '1.0',
+                            'Total'      => '4800',
+                        ],
+                        [
+                            '@type'      => 'product',
                             'Product Id' => 314534523452348,
                             'Unit Price' => '4800',
-                            'Quantity' => '1.0',
-                            'Total' => '4800',
-                        ),
-                    )
-                )
-            ))
+                            'Quantity'   => '1.0',
+                            'Total'      => '4800',
+                        ],
+                    ]
+                ]
+            ]]
         );
 
         $this->assertEquals(
@@ -52,6 +53,6 @@ class NestedValuesTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->mockTransport = new MockTransport();
-        $this->transport = new XmlDataTransportDecorator($this->mockTransport);
+        $this->transport     = new XmlDataTransportDecorator($this->mockTransport);
     }
 }

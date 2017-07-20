@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -59,7 +60,7 @@ class GetSearchRecordsByPDCTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('SomeModuleName');
+        $this->request               = new TransportRequest('SomeModuleName');
         $this->getSearchRecordsByPDC = new Request\GetSearchRecordsByPDC($this->request);
     }
 }

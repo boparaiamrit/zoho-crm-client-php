@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -24,7 +25,7 @@ class DeleteFileTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('Leads');
+        $this->request    = new TransportRequest('Leads');
         $this->deleteFile = new Request\DeleteFile($this->request);
     }
 }

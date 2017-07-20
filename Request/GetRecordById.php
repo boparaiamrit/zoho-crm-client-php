@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
 
 /**
@@ -8,7 +9,7 @@ namespace CristianPontes\ZohoCRMClient\Request;
  *
  * @see https://www.zoho.com/crm/help/api/getrecordbyid.html
  */
-class GetRecordById  extends AbstractRequest
+class GetRecordById extends AbstractRequest
 {
     protected function configureRequest()
     {
@@ -22,6 +23,7 @@ class GetRecordById  extends AbstractRequest
      * When not set defaults to all columns
      *
      * @param array $columns
+     *
      * @return GetRecordById
      */
     public function selectColumns($columns)
@@ -33,11 +35,13 @@ class GetRecordById  extends AbstractRequest
             'selectColumns',
             $this->request->getModule() . '(' . implode(',', $columns) . ')'
         );
+
         return $this;
     }
 
     /**
      * @param string $id
+     *
      * @return GetRecordById
      */
     public function id($id)
@@ -55,6 +59,7 @@ class GetRecordById  extends AbstractRequest
     public function withEmptyFields()
     {
         $this->request->setParam('newFormat', "2");
+
         return $this;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -18,7 +19,7 @@ class GetFieldsTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('Leads');
+        $this->request   = new TransportRequest('Leads');
         $this->getFields = new Request\GetFields($this->request);
     }
 }

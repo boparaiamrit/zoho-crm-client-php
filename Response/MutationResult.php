@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Response;
 
 use CristianPontes\ZohoCRMClient\ZohoError;
@@ -27,13 +28,13 @@ class MutationResult
     public $modifiedBy;
 
     /**
-     * @param int $index
+     * @param int    $index
      * @param string $code
      */
     public function __construct($index, $code)
     {
         $this->index = $index;
-        $this->code = $code;
+        $this->code  = $code;
     }
 
     /**
@@ -94,11 +95,13 @@ class MutationResult
 
     /**
      * @param ZohoError $error
+     *
      * @return MutationResult
      */
     public function setError(ZohoError $error)
     {
         $this->error = $error;
+
         return $this;
     }
 
@@ -120,11 +123,13 @@ class MutationResult
 
     /**
      * @param int $id
+     *
      * @return MutationResult self
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -138,11 +143,13 @@ class MutationResult
 
     /**
      * @param string $createdTime
+     *
      * @return MutationResult self
      */
     public function setCreatedTime($createdTime)
     {
         $this->createdTime = $createdTime;
+
         return $this;
     }
 
@@ -156,11 +163,13 @@ class MutationResult
 
     /**
      * @param string $modifiedTime
+     *
      * @return MutationResult self
      */
     public function setModifiedTime($modifiedTime)
     {
         $this->modifiedTime = $modifiedTime;
+
         return $this;
     }
 
@@ -174,11 +183,13 @@ class MutationResult
 
     /**
      * @param string $createdBy
+     *
      * @return MutationResult self
      */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
+
         return $this;
     }
 
@@ -192,11 +203,13 @@ class MutationResult
 
     /**
      * @param string $modifiedBy
+     *
      * @return MutationResult self
      */
     public function setModifiedBy($modifiedBy)
     {
         $this->modifiedBy = $modifiedBy;
+
         return $this;
     }
 

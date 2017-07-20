@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Response;
 
 class Field
@@ -15,15 +16,15 @@ class Field
 
     public function __construct($section, $label, $type, $required, $readOnly, $maxLength, array $options, $customField, $lm)
     {
-        $this->section = $section;
-        $this->label = $label;
-        $this->type = $type;
-        $this->required = $required;
-        $this->readOnly = $readOnly;
-        $this->maxLength = $maxLength;
-        $this->options = $options;
+        $this->section     = $section;
+        $this->label       = $label;
+        $this->type        = $type;
+        $this->required    = $required;
+        $this->readOnly    = $readOnly;
+        $this->maxLength   = $maxLength;
+        $this->options     = $options;
         $this->customField = $customField;
-        $this->lm = $lm;
+        $this->lm          = $lm;
     }
 
     /**

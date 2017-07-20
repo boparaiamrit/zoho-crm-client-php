@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
 
 use CristianPontes\ZohoCRMClient\Response\Record;
@@ -10,7 +11,6 @@ use CristianPontes\ZohoCRMClient\Response\Record;
  *
  * @see https://www.zoho.com/crm/help/api/getdeletedrecordids.html
  */
-
 class GetDeletedRecordIds extends AbstractRequest
 {
     protected function configureRequest()
@@ -21,21 +21,25 @@ class GetDeletedRecordIds extends AbstractRequest
 
     /**
      * @param int $index
+     *
      * @return GetDeletedRecordIds
      */
     public function fromIndex($index)
     {
-        $this->request->setParam('fromIndex', (int) $index);
+        $this->request->setParam('fromIndex', (int)$index);
+
         return $this;
     }
 
     /**
      * @param int $index
+     *
      * @return GetDeletedRecordIds
      */
     public function toIndex($index)
     {
-        $this->request->setParam('toIndex', (int) $index);
+        $this->request->setParam('toIndex', (int)$index);
+
         return $this;
     }
 
@@ -43,11 +47,13 @@ class GetDeletedRecordIds extends AbstractRequest
      * If you specify the time, modified data will be fetched after the configured time.
      *
      * @param \DateTime $timestamp
+     *
      * @return GetDeletedRecordIds
      */
     public function since(\DateTime $timestamp)
     {
         $this->request->setParam('lastModifiedTime', $timestamp->format('Y-m-d H:i:s'));
+
         return $this;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -19,7 +20,7 @@ class UpdateRecordsTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->transport = new MockTransport();
-        $this->request = new TransportRequest('Leads');
+        $this->request   = new TransportRequest('Leads');
         $this->request->setTransport($this->transport);
         $this->updateRecords = new Request\UpdateRecords($this->request);
     }
@@ -35,12 +36,12 @@ class UpdateRecordsTest extends \PHPUnit_Framework_TestCase
 
     public function testAddRecord()
     {
-        $this->updateRecords->addRecord(array('abc123'));
+        $this->updateRecords->addRecord(['abc123']);
 
         $this->transport->response = true;
 
         $this->assertTrue($this->updateRecords->request());
-        $this->assertEquals(array('version' => 4, 'xmlData' =>  array(array('abc123'))), $this->transport->paramList);
+        $this->assertEquals(['version' => 4, 'xmlData' => [['abc123']]], $this->transport->paramList);
     }
 
     public function testTriggerWorkflow()

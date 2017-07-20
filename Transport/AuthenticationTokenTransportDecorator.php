@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 /**
@@ -17,7 +18,7 @@ class AuthenticationTokenTransportDecorator extends AbstractTransportDecorator
     public function call($module, $method, array $paramList)
     {
         $paramList['authtoken'] = $this->authToken;
-        $paramList['scope'] = 'crmapi';
+        $paramList['scope']     = 'crmapi';
 
         return $this->transport->call($module, $method, $paramList);
     }

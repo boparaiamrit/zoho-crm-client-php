@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Transport;
 
 use CristianPontes\ZohoCRMClient\Transport\AuthenticationTokenTransportDecorator;
@@ -15,9 +16,9 @@ class AuthenticationTokenTransportDecoratorTest extends \PHPUnit_Framework_TestC
 
     public function testDoesDecorate()
     {
-        $module = 'Leads';
-        $method = 'getRecords';
-        $paramList = array();
+        $module    = 'Leads';
+        $method    = 'getRecords';
+        $paramList = [];
 
         $this->transport->response = 'test 123';
 
@@ -30,7 +31,7 @@ class AuthenticationTokenTransportDecoratorTest extends \PHPUnit_Framework_TestC
         $this->assertEquals($method, $this->transport->method);
 
         $this->assertEquals(
-            array('authtoken' => $this->authToken, 'scope' => 'crmapi'),
+            ['authtoken' => $this->authToken, 'scope' => 'crmapi'],
             $this->transport->paramList
         );
     }

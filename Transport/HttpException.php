@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 use CristianPontes\ZohoCRMClient\Exception\Exception;
@@ -16,7 +17,7 @@ class HttpException extends Exception
     public function __construct($content, $statusCode)
     {
         $this->statusCode = $statusCode;
-        $this->content = $content;
+        $this->content    = $content;
         parent::__construct('Unexpected HTTP response with statuscode: ' . $statusCode);
     }
 

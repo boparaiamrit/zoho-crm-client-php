@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
 
 use CristianPontes\ZohoCRMClient\Response\MutationResult;
@@ -10,7 +11,6 @@ use CristianPontes\ZohoCRMClient\Response\MutationResult;
  *
  * @see https://www.zoho.com/crm/help/api/deleterecords.html
  */
-
 class DeleteRecords extends AbstractRequest
 {
     protected function configureRequest()
@@ -23,10 +23,13 @@ class DeleteRecords extends AbstractRequest
      * Set the record Id to delete
      *
      * @param $id
+     *
      * @return DeleteRecords
      */
-    public function id($id){
+    public function id($id)
+    {
         $this->request->setParam('id', $id);
+
         return $this;
     }
 

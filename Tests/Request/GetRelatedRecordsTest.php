@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -48,7 +49,7 @@ class GetRelatedRecordsTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('SomeModuleName');
+        $this->request           = new TransportRequest('SomeModuleName');
         $this->getRelatedRecords = new Request\GetRelatedRecords($this->request);
     }
 }

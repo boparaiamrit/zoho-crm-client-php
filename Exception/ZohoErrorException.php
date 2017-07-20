@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Exception;
 
 use CristianPontes\ZohoCRMClient\ZohoError;

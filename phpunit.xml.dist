@@ -10,7 +10,7 @@
          stopOnFailure="false"
          syntaxCheck="false"
          bootstrap="vendor/autoload.php"
-        >
+>
     <testsuites>
         <testsuite name="Zoho CRM Client Test Suite">
             <directory>./Tests/</directory>

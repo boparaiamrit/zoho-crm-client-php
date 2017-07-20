@@ -1,5 +1,7 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
+
 use CristianPontes\ZohoCRMClient\Response\Record;
 
 /**
@@ -22,21 +24,25 @@ class GetSearchRecordsByPDC extends AbstractRequest
 
     /**
      * @param int $index
+     *
      * @return GetSearchRecordsByPDC
      */
     public function fromIndex($index)
     {
-        $this->request->setParam('fromIndex', (int) $index);
+        $this->request->setParam('fromIndex', (int)$index);
+
         return $this;
     }
 
     /**
      * @param int $index
+     *
      * @return GetSearchRecordsByPDC
      */
     public function toIndex($index)
     {
-        $this->request->setParam('toIndex', (int) $index);
+        $this->request->setParam('toIndex', (int)$index);
+
         return $this;
     }
 
@@ -45,6 +51,7 @@ class GetSearchRecordsByPDC extends AbstractRequest
      * When not set defaults to all columns
      *
      * @param array|string $columns
+     *
      * @return GetSearchRecordsByPDC
      */
     public function selectColumns($columns)
@@ -56,6 +63,7 @@ class GetSearchRecordsByPDC extends AbstractRequest
             'selectColumns',
             $this->request->getModule() . '(' . implode(',', $columns) . ')'
         );
+
         return $this;
     }
 
@@ -67,6 +75,7 @@ class GetSearchRecordsByPDC extends AbstractRequest
     public function withEmptyFields()
     {
         $this->request->setParam('newFormat', "2");
+
         return $this;
     }
 
@@ -75,11 +84,13 @@ class GetSearchRecordsByPDC extends AbstractRequest
      * @see https://www.zoho.com/crm/help/api/getsearchrecordsbypdc.html#Default_Predefined_Columns
      *
      * @param $column string
+     *
      * @return GetSearchRecordsByPDC
      */
     public function searchColumn($column)
     {
         $this->request->setParam('searchColumn', $column);
+
         return $this;
     }
 
@@ -87,11 +98,13 @@ class GetSearchRecordsByPDC extends AbstractRequest
      * Specify the value to be searched
      *
      * @param $value string
+     *
      * @return GetSearchRecordsByPDC
      */
     public function searchValue($value)
     {
         $this->request->setParam('searchValue', $value);
+
         return $this;
     }
 

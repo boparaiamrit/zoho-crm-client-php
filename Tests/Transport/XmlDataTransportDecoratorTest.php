@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Transport;
 
 use CristianPontes\ZohoCRMClient\Response\Record;
@@ -14,21 +15,21 @@ class XmlDataTransportDecoratorTest extends \PHPUnit_Framework_TestCase
 
     public function testEncodeRecords()
     {
-        $records = array(
-            array(
+        $records = [
+            [
                 'First Name' => 'Cristian',
-                'Last Name' => 'Pontes',
-                'Due Date' => date_create('2012-01-01')
-            ),
-            array('First Name' => 'Stefan'),
-        );
+                'Last Name'  => 'Pontes',
+                'Due Date'   => date_create('2012-01-01')
+            ],
+            ['First Name' => 'Stefan'],
+        ];
 
         $this->mockTransport->response = file_get_contents(__DIR__ . '/../XML/getRecordsResponse.xml');
 
         $records = $this->transport->call(
             'Leads',
             'getRecords',
-            array('xmlData' => $records)
+            ['xmlData' => $records]
         );
 
         $this->assertEquals(
@@ -55,7 +56,7 @@ XML
     protected function setUp()
     {
         $this->mockTransport = new MockTransport();
-        $this->transport = new XmlDataTransportDecorator($this->mockTransport);
+        $this->transport     = new XmlDataTransportDecorator($this->mockTransport);
     }
 }
  

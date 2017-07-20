@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -24,14 +25,14 @@ class DownloadFileTest extends \PHPUnit_Framework_TestCase
 
     public function testFilePath()
     {
-        $file_path = __DIR__."/test.pdf";
+        $file_path = __DIR__ . "/test.pdf";
         $this->downloadFile->setFilePath($file_path);
         $this->assertEquals($file_path, $this->request->getParam('file_path'));
     }
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('Leads');
+        $this->request      = new TransportRequest('Leads');
         $this->downloadFile = new Request\DownloadFile($this->request);
     }
 }

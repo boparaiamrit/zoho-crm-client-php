@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
 
 /**
@@ -23,6 +24,7 @@ class GetRecords extends AbstractRequest
      * When not set defaults to all columns
      *
      * @param array|string $columns
+     *
      * @return GetRecords
      */
     public function selectColumns($columns)
@@ -34,36 +36,43 @@ class GetRecords extends AbstractRequest
             'selectColumns',
             $this->request->getModule() . '(' . implode(',', $columns) . ')'
         );
+
         return $this;
     }
 
     /**
      * @param int $index
+     *
      * @return GetRecords
      */
     public function fromIndex($index)
     {
-        $this->request->setParam('fromIndex', (int) $index);
+        $this->request->setParam('fromIndex', (int)$index);
+
         return $this;
     }
 
     /**
      * @param int $index
+     *
      * @return GetRecords
      */
     public function toIndex($index)
     {
-        $this->request->setParam('toIndex', (int) $index);
+        $this->request->setParam('toIndex', (int)$index);
+
         return $this;
     }
 
     /**
      * @param string $column
+     *
      * @return GetRecords
      */
     public function sortBy($column)
     {
-        $this->request->setParam('sortColumnString', (string) $column);
+        $this->request->setParam('sortColumnString', (string)$column);
+
         return $this;
     }
 
@@ -73,6 +82,7 @@ class GetRecords extends AbstractRequest
     public function sortAsc()
     {
         $this->sortOrder('asc');
+
         return $this;
     }
 
@@ -82,6 +92,7 @@ class GetRecords extends AbstractRequest
     public function sortDesc()
     {
         $this->sortOrder('desc');
+
         return $this;
     }
 
@@ -89,11 +100,13 @@ class GetRecords extends AbstractRequest
      * If you specify the time, modified data will be fetched after the configured time.
      *
      * @param \DateTime $timestamp
+     *
      * @return GetRecords
      */
     public function since(\DateTime $timestamp)
     {
         $this->request->setParam('lastModifiedTime', $timestamp->format('Y-m-d H:i:s'));
+
         return $this;
     }
 
@@ -105,6 +118,7 @@ class GetRecords extends AbstractRequest
     public function withEmptyFields()
     {
         $this->request->setParam('newFormat', "2");
+
         return $this;
     }
 

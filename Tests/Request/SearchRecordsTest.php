@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Request;
 
 use CristianPontes\ZohoCRMClient\Request;
@@ -71,7 +72,7 @@ class SearchRecordsTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = new TransportRequest('SomeModuleName');
+        $this->request       = new TransportRequest('SomeModuleName');
         $this->searchRecords = new Request\SearchRecords($this->request);
     }
 }

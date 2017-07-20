@@ -1,5 +1,7 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
+
 use CristianPontes\ZohoCRMClient\Response\Record;
 
 /**
@@ -11,8 +13,8 @@ use CristianPontes\ZohoCRMClient\Response\Record;
  */
 class SearchRecords extends AbstractRequest
 {
-    private $wheres = array();
-    private $orWheres = array();
+    private $wheres   = [];
+    private $orWheres = [];
 
     protected function configureRequest()
     {
@@ -27,6 +29,7 @@ class SearchRecords extends AbstractRequest
      * When not set defaults to all columns
      *
      * @param array $columns
+     *
      * @return SearchRecords
      */
     public function selectColumns($columns)
@@ -38,26 +41,31 @@ class SearchRecords extends AbstractRequest
             'selectColumns',
             $this->request->getModule() . '(' . implode(',', $columns) . ')'
         );
+
         return $this;
     }
 
     /**
      * @param int $index
+     *
      * @return SearchRecords
      */
     public function fromIndex($index)
     {
-        $this->request->setParam('fromIndex', (int) $index);
+        $this->request->setParam('fromIndex', (int)$index);
+
         return $this;
     }
 
     /**
      * @param int $index
+     *
      * @return SearchRecords
      */
     public function toIndex($index)
     {
-        $this->request->setParam('toIndex', (int) $index);
+        $this->request->setParam('toIndex', (int)$index);
+
         return $this;
     }
 
@@ -69,6 +77,7 @@ class SearchRecords extends AbstractRequest
     public function withEmptyFields()
     {
         $this->request->setParam('newFormat', "2");
+
         return $this;
     }
 
@@ -79,12 +88,14 @@ class SearchRecords extends AbstractRequest
      *
      * @param $field string
      * @param $value string
+     *
      * @return SearchRecords
      */
     public function where($field, $value)
     {
         $this->wheres[$field] = $value;
         $this->parseQueries();
+
         return $this;
     }
 
@@ -96,34 +107,36 @@ class SearchRecords extends AbstractRequest
      *
      * @param $field string
      * @param $value string
+     *
      * @return SearchRecords
      */
     public function orWhere($field, $value)
     {
-        $this->orWheres[] = array($field => $value);
+        $this->orWheres[] = [$field => $value];
         $this->parseQueries();
+
         return $this;
     }
 
     private function parseQueries()
     {
-        $wheres = '';
+        $wheres   = '';
         $orWheres = '';
 
         $wheres_keys = array_keys($this->wheres);
         for ($i = 0; $i < count($wheres_keys); $i++) {
             $current = $wheres_keys[$i];
-            $wheres .= '('.$current.':'.$this->wheres[$current].')';
-            if(isset($wheres_keys[$i+1])){
+            $wheres  .= '(' . $current . ':' . $this->wheres[$current] . ')';
+            if (isset($wheres_keys[$i + 1])) {
                 $wheres .= 'AND';
             }
         }
         foreach ($this->orWheres as $item) {
             foreach ($item as $key => $value) {
-                $orWheres .= 'OR('.$key.':'.$value.')';
+                $orWheres .= 'OR(' . $key . ':' . $value . ')';
             }
         }
-        $query = '(('.$wheres.')'.$orWheres.')';
+        $query = '((' . $wheres . ')' . $orWheres . ')';
         $this->request->setParam('criteria', $query);
     }
 

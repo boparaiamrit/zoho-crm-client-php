@@ -1,7 +1,6 @@
 <?php
-namespace CristianPontes\ZohoCRMClient\Request;
 
-use CristianPontes\ZohoCRMClient\Response\MutationResult;
+namespace CristianPontes\ZohoCRMClient\Request;
 
 /**
  * DownloadFile API Call
@@ -10,7 +9,6 @@ use CristianPontes\ZohoCRMClient\Response\MutationResult;
  *
  * @see https://www.zoho.com/crm/help/api/downloadfile.html
  */
-
 class DownloadFile extends AbstractRequest
 {
     protected function configureRequest()
@@ -23,10 +21,13 @@ class DownloadFile extends AbstractRequest
      * Set the file id to download
      *
      * @param $id
+     *
      * @return DownloadFile
      */
-    public function id($id){
+    public function id($id)
+    {
         $this->request->setParam('id', $id);
+
         return $this;
     }
 
@@ -35,10 +36,13 @@ class DownloadFile extends AbstractRequest
      * In this location the file will be saved
      *
      * @param $path
+     *
      * @return DownloadFile
      */
-    public function setFilePath($path){
+    public function setFilePath($path)
+    {
         $this->request->setParam('file_path', $path);
+
         return $this;
     }
 

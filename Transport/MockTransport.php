@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 class MockTransport implements Transport
@@ -10,9 +11,10 @@ class MockTransport implements Transport
 
     public function call($module, $method, array $paramList)
     {
-        $this->module = $module;
-        $this->method = $method;
+        $this->module    = $module;
+        $this->method    = $method;
         $this->paramList = $paramList;
+
         return $this->response;
     }
 } 

@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 /**
@@ -9,7 +10,8 @@ interface Transport
     /**
      * @param string $module
      * @param string $method
-     * @param array $paramList
+     * @param array  $paramList
+     *
      * @return array
      */
     public function call($module, $method, array $paramList);

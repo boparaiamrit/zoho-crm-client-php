@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Transport;
 
 use Psr\Log\LoggerAwareInterface;
@@ -19,7 +20,8 @@ abstract class AbstractTransportDecorator implements Transport, LoggerAwareInter
     /**
      * @param string $module
      * @param string $method
-     * @param array $paramList
+     * @param array  $paramList
+     *
      * @return array
      */
     abstract public function call($module, $method, array $paramList);

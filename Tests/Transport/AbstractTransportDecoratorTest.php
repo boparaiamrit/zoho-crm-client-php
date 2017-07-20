@@ -1,9 +1,10 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Tests\Transport;
 
-use CristianPontes\ZohoCRMClient\Transport\MockLoggerAwareTransport;
 use CristianPontes\ZohoCRMClient\Tests\SingleMessageLogger;
 use CristianPontes\ZohoCRMClient\Transport\AbstractTransportDecorator;
+use CristianPontes\ZohoCRMClient\Transport\MockLoggerAwareTransport;
 
 class AbstractTransportDecoratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,9 +16,9 @@ class AbstractTransportDecoratorTest extends \PHPUnit_Framework_TestCase
         $logger = new SingleMessageLogger();
         $this->decorator->setLogger($logger);
 
-        $module = 'Accounts';
-        $method = 'getFields';
-        $paramList = array();
+        $module    = 'Accounts';
+        $method    = 'getFields';
+        $paramList = [];
 
         $this->decorator->call($module, $method, $paramList);
 
@@ -27,7 +28,7 @@ class AbstractTransportDecoratorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $transport = new MockLoggerAwareTransport();
+        $transport       = new MockLoggerAwareTransport();
         $this->decorator = new mockDecorator($transport);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Response;
 
 /**
@@ -11,12 +12,12 @@ class Record
 
     /**
      * @param array $data
-     * @param int $index
+     * @param int   $index
      */
     function __construct(array $data, $index = null)
     {
         $this->index = $index;
-        $this->data = $data;
+        $this->data  = $data;
     }
 
     /**
@@ -29,7 +30,8 @@ class Record
 
     /**
      * @param string $key
-     * @param null $default
+     * @param null   $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)

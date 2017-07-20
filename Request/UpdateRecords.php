@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
 
 use CristianPontes\ZohoCRMClient\Response\MutationResult;
@@ -13,7 +14,7 @@ use CristianPontes\ZohoCRMClient\Response\MutationResult;
 class UpdateRecords extends AbstractRequest
 {
     /** @var array */
-    private $records = array();
+    private $records = [];
 
     protected function configureRequest()
     {
@@ -24,11 +25,13 @@ class UpdateRecords extends AbstractRequest
 
     /**
      * @param array $record Record as a simple associative array
+     *
      * @return UpdateRecords
      */
     public function addRecord(array $record)
     {
         $this->records[] = $record;
+
         return $this;
     }
 
@@ -42,11 +45,13 @@ class UpdateRecords extends AbstractRequest
 
     /**
      * @param array $records array containing records otherwise added by addRecord()
+     *
      * @return UpdateRecords
      */
     public function setRecords(array $records)
     {
         $this->records = $records;
+
         return $this;
     }
 
@@ -56,6 +61,7 @@ class UpdateRecords extends AbstractRequest
     public function triggerWorkflow()
     {
         $this->request->setParam('wfTrigger', 'true');
+
         return $this;
     }
 
@@ -65,6 +71,7 @@ class UpdateRecords extends AbstractRequest
     public function onDuplicateUpdate()
     {
         $this->request->setParam('duplicateCheck', 2);
+
         return $this;
     }
 
@@ -74,6 +81,7 @@ class UpdateRecords extends AbstractRequest
     public function onDuplicateError()
     {
         $this->request->setParam('duplicateCheck', 1);
+
         return $this;
     }
 
@@ -83,6 +91,7 @@ class UpdateRecords extends AbstractRequest
     public function requireApproval()
     {
         $this->request->setParam('isApproval', 'true');
+
         return $this;
     }
 

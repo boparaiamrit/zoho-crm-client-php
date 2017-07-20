@@ -1,4 +1,5 @@
 <?php
+
 namespace CristianPontes\ZohoCRMClient\Request;
 
 use CristianPontes\ZohoCRMClient\Exception\NoDataException;
@@ -26,7 +27,7 @@ abstract class AbstractRequest implements RequestInterface
         try {
             return $this->request->request();
         } catch (NoDataException $e) {
-            return array();
+            return [];
         }
     }
 
